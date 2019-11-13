@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            font-family: 'Microsoft Jhenghei';
+            font-weight: 600;
+        }
+        body {
+            background-image: url(./images/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            /* cursor: pointer; */
+            /*
+             url (圖檔路徑) x y, 預設樣式  */
+             /* cursor: url(./images/zvp_plants.gif) 0 0, auto;  */
+             overflow: hidden;
+        }
+
+
+
+        .red {
+            background: red;
+        }
+
+        .blue {
+            background: blue;
+        }
+
+        #currentScore {
+            display: inline-block;
+            margin-bottom: 50px;
+            color: white;
+            font-size: 24px;
+        }
+             
+        #rank {
+             margin-left: 20%; 
+             display: inline-block; 
+             color: white;
+             font-size: 24px;
+             
+        }
+        div span{
+            font-size: 50px;
+            font-weight: 800;
+        }
+   
+        #startBtn {
+            width: 130px;
+            padding: 10px;
+            margin: 0 auto;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: linear-gradient(0deg rgba(255,255,255,.5) rgba(0,0,0,0.5));
+            text-align: center;
+            font-size:24px;
+            color: white;
+            border: solid 2px rgb(250, 250, 250);
+            border-radius: 50px;
+            box-shadow: 0 1px 5px 3px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        #startBtn:hover{
+            display: block;
+            width: 150px;
+            text-shadow: 0 0 15px white; 
+            box-shadow: 0 0 5px 3px rgba(142, 255, 165, 0.5);
+            filter: drop-shadow(0 0 3px rgb(137, 255, 174)); 
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: table;
+            margin: 0 auto;
+            vertical-align: middle;
+        }
+
+        #box {
+            width: 100vw;
+            height: 100vh;
+            display: table-cell;
+            margin: 0 auto;
+            vertical-align: middle;
+            text-align: center;
+        }
+        table{
+            margin: 0 auto;
+            margin-top: 0px;
+        }
+         td {
+            border: solid 0px black;
+            width: 200px;
+            height: 185px;
+            vertical-align: bottom;
+            cursor: url(./images/zvp_plants-r.gif) 50 50, auto;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        } 
+
+        .zombie1 {
+/*          background-image: url(./images/dirt2.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom; */
+/*             width: auto;
+            height: 185; */
+            background: rgba(0,0,0,0.0);
+            position: relative;
+            transform-origin: bottom ; 
+            transition: all 0.5s ease;
+            z-index: initial;
+
+        }
+
+        .zombie1::before{
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/giphy.gif);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom;
+            display: block;
+            top: 0;
+            left: 0;
+            z-index:inherit;
+         
+            animation-name: rise;
+            animation-duration:0.5s ;
+            animation-direction: normal;
+            transform-origin: bottom ; 
+            } 
+            @keyframes rise {
+                from{
+                    transform: scaleY(0);
+                }
+                to{
+                    transform: scaleY(1);
+                } 
+            } 
+        .zombie1::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/dirt2.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: bottom;
+            display: block;
+            top: 0;
+            left: 0;
+            transform-origin: bottom ; 
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+            z-index: 1;
+        }
+
+        .zombie2{
+            background-image: url(./images/giphy2.gif);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            animation-name: fade;
+            animation-fill-mode: forwards;
+            animation-duration: 1s;
+            cursor: url(./images/hit2.gif) 50 50, auto;
+        } 
+        @keyframes fade {
+            from{
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+         }
+        
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="box">
+            <div id="currentScore">
+                你的分數:
+                <span id="scoreText"> 0 </span>
+            </div>
+            
+            <div id="rank">
+                最高分數:
+                <span id="highNameText">沒有人</span>
+                的分數是: 
+                <span id="highScoreText">0</span>
+            </div>
+
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            
+            <div id="startBtn">開始遊戲</div>
+            <!-- <input type="button" value="開始遊戲" > -->
+
+        </div>
+    </div>
+    <script>
+        let score = 0;
+        let scoreText = document.getElementById("scoreText");
+        let startBtn = document.getElementById("startBtn");
+        let tds = document.getElementsByTagName("td"); //這個抓到的會是陣列
+
+        // 設定計時器的變數為 0 ，避免被 clearInterval 清掉，才可以重複利用
+        let gameTimer = 0;
+
+        let high = {   //這邊是陣列
+            name: "",
+            score: 0
+        };
+        let highNameText = document.getElementById("highNameText");
+        let highScoreText = document.getElementById("highScoreText");
+
+        let highStorage = window.localStorage.getItem("highscore");
+        if (highStorage != null) {
+            high = JSON.parse(highStorage);
+            highNameText.innerText = high.name;
+            highScoreText.innerText = high.score;
+        }
+
+        startBtn.onclick = () => {  //按下開始鈕
+            // 將開始按鈕停用
+            startBtn.setAttribute("disabled", "");
+            document.getElementById("startBtn").disabled=true;
+
+            // 分數歸 0
+            score = 0;
+            scoreText.innerText = score;
+
+            gameTimer = setInterval(game, 2500);
+            game(); //執行這個自訂function (在下面)
+
+            setTimeout(() => {  //設定遊戲結束時間
+                clearInterval(gameTimer);
+                for (let td of tds) {  //將td的陣列讀出來
+                    td.classList.remove("zombie1");
+                    td.classList.remove("zombie2");
+                }
+                alert(`時間到，你得到 ${score} 分!`);
+                startBtn.removeAttribute("disabled");
+                document.getElementById("startBtn").disabled=false ;
+
+                if (score > high.score) {
+                    let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
+                    high.name = playerName;
+                    highNameText.innerText = playerName;
+                    high.score = score;
+                    highScoreText.innerText = score;
+
+                    // window.localStorage.setItem 只能存文字
+                    // JSON.stringify 可以將 JSON 陣列轉成文字
+                    window.localStorage.setItem("highscore", JSON.stringify(high));
+                }
+
+            }, 8000);
+        }
+
+        game = () => { //顯示出殭屍格子的自訂function程式段
+            for (let td of tds) {
+                td.classList.remove("zombie1");
+                td.classList.remove("zombie2");
+            }
+            for (let i = 1; i <= 5; i++) {
+                rand = Math.round(Math.random() * 15);
+                if (tds[rand].classList.contains("zombie1")) {
+                    i -= 1;
+                } else {
+                    tds[rand].classList.add("zombie1");
+                }
+            }
+        }
+
+        //打僵屍的程式段
+        for (let td of tds) { //for裡面一定要加 let!!!
+            td.onclick = () => {
+                if (td.classList.contains("zombie1")) { //打殭屍囉
+                    td.classList.remove("zombie1");  //置換圖
+                    td.classList.add("zombie2");
+                    score += 1;
+                    scoreText.innerText = score;
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
