@@ -53,28 +53,52 @@
             font-weight: 800;
         }
    
-        #startBtn {
-            width: 130px;
-            padding: 10px;
+        .startBtn {
+            width: 145px;
+            padding: 10px ;
             margin: 0 auto;
             margin-top: 30px;
             margin-bottom: 20px;
-            background: linear-gradient(0deg rgba(255,255,255,.5) rgba(0,0,0,0.5));
+            background: -webkit-linear-gradient(top, #FFFFFF, green);
+            background: -moz-linear-gradient(top, #FFFFFF, green);
+            background: -ms-linear-gradient(top, #FFFFFF, green);
+            background: -o-linear-gradient(top, #FFFFFF, green);
             text-align: center;
             font-size:24px;
             color: white;
             border: solid 2px rgb(250, 250, 250);
             border-radius: 50px;
-            box-shadow: 0 1px 5px 3px rgba(0,0,0,0.5);
+            box-shadow: 0 1px 8px 6px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        #startBtn:hover{
+        .startBtn:hover{
             display: block;
-            width: 150px;
+            width: 160px;
+            font-size:28px;
             text-shadow: 0 0 15px white; 
             box-shadow: 0 0 5px 3px rgba(142, 255, 165, 0.5);
             filter: drop-shadow(0 0 3px rgb(137, 255, 174)); 
+        }
+        .disabledBtn {
+            width: 145px;
+            padding: 10px ;
+            margin: 0 auto;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(top, #FFFFFF, gray);
+            background: -moz-linear-gradient(top, #FFFFFF, gray);
+            background: -ms-linear-gradient(top, #FFFFFF, #gray);
+            background: -o-linear-gradient(top, #FFFFFF, #gray);
+            text-align: center;
+            font-size:24px;
+            color: white;
+            border: solid 2px rgb(250, 250, 250);
+            border-radius: 50px;
+            box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.4);
+            cursor: not-allowed;
+            transition: all 0.2s ease;
+            opacity: 0.5;
         }
 
         #container {
@@ -227,13 +251,15 @@
                 </tr>
             </table>
             
-            <div id="startBtn">開始遊戲</div>
+            <button id="startBtn" class="startBtn">開始遊戲</button>
             <!-- <input type="button" value="開始遊戲" > -->
 
         </div>
     </div>
     <script>
         let score = 0;
+        let speed = 2500;
+        let playTime = 8000;
         let scoreText = document.getElementById("scoreText");
         let startBtn = document.getElementById("startBtn");
         let tds = document.getElementsByTagName("td"); //這個抓到的會是陣列
@@ -257,14 +283,14 @@
 
         startBtn.onclick = () => {  //按下開始鈕
             // 將開始按鈕停用
-            startBtn.setAttribute("disabled", "");
-            document.getElementById("startBtn").disabled=true;
-
+            disableBtn(true); 
+            /* startBtn.setAttribute("disabled", "");  */
+ 
             // 分數歸 0
             score = 0;
             scoreText.innerText = score;
 
-            gameTimer = setInterval(game, 2500);
+            gameTimer = setInterval(game, speed);
             game(); //執行這個自訂function (在下面)
 
             setTimeout(() => {  //設定遊戲結束時間
@@ -274,8 +300,11 @@
                     td.classList.remove("zombie2");
                 }
                 alert(`時間到，你得到 ${score} 分!`);
-                startBtn.removeAttribute("disabled");
-                document.getElementById("startBtn").disabled=false ;
+            /*     startBtn.removeAttribute("disabled"); */
+            /*     document.getElementById("startBtn").disabled=false ; */
+                disableBtn(false);
+                document.getElementById("startBtn").classList.remove("disabledBtn");
+                document.getElementById("startBtn").classList.add("startBtn");
 
                 if (score > high.score) {
                     let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
@@ -289,7 +318,12 @@
                     window.localStorage.setItem("highscore", JSON.stringify(high));
                 }
 
-            }, 8000);
+            }, playTime);
+        }
+        disableBtn = (type) => {
+                document.getElementById("startBtn").disabled=type;
+                document.getElementById("startBtn").classList.remove("startBtn");
+                document.getElementById("startBtn").classList.add("disabledBtn");
         }
 
         game = () => { //顯示出殭屍格子的自訂function程式段
