@@ -9,7 +9,7 @@
     <style>
         *{
             font-family: 'Microsoft Jhenghei';
-            font-weight: 800;
+            font-weight: 600;
         }
         body {
             background-image: url(./images/bg.jpg);
@@ -41,7 +41,7 @@
             font-size: 24px;
         }
              
-        #rank {
+        #score {
              margin-left: 20%; 
              display: inline-block; 
              color: white;
@@ -49,63 +49,23 @@
              
         }
         div span{
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 800;
         }
    
-        .startBtn {
-            width: 145px;
-            padding: 10px ;
+        #startBtn {
+            width: 120px;
+            padding: 10px;
             margin: 0 auto;
             margin-top: 30px;
             margin-bottom: 20px;
-            /* background: -webkit-linear-gradient(top,rgba(21, 155, 21,0.1) -50%, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.726) 70%, rgba(59, 138, 59, 0.205) ); */
-            background: -webkit-linear-gradient(top, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.1) 70%);
-            background: -moz-linear-gradient(top, #FFFFFF, orange);
-            background: -ms-linear-gradient(top, #FFFFFF, orange);
-            background: -o-linear-gradient(top, #FFFFFF, orange);
             text-align: center;
             font-size:24px;
             color: white;
-            text-decoration:none; 
-            text-shadow: rgba(0, 24, 0, 0.9) 0px -1px 1px;
-            border: solid 2px rgb(250, 250, 250);
-            border-radius: 28px;
-            box-shadow: 0 2px 8px 6px rgba(0, 0, 0, 0.1);
+            border: solid 2px rgb(243, 242, 242);
+            border-radius: 50px;
+            box-shadow: 0 1px 5px 3px rgba(0,0,0,0.5);
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .startBtn:hover{
-            display: block;
-            width: 180px;
-            font-size:26px;
-            text-shadow: 0 0 15px white; 
-            box-shadow: 0 0 5px 3px rgba(142, 255, 165, 0.5);
-            filter: drop-shadow(0 0 3px rgb(137, 255, 174)); 
-        }
-        .startBtn:active{
-            position:relative;
-	        top:2px;
-        }
-        .disabledBtn {
-            width: 145px;
-            padding: 10px ;
-            margin: 0 auto;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            background: -webkit-linear-gradient(top, #FFFFFF, gray);
-            background: -moz-linear-gradient(top, #FFFFFF, gray);
-            background: -ms-linear-gradient(top, #FFFFFF, #gray);
-            background: -o-linear-gradient(top, #FFFFFF, #gray);
-            text-align: center;
-            font-size:24px;
-            color: white;
-            border: solid 2px rgb(250, 250, 250);
-            border-radius: 30px;
-            box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.4);
-            cursor: not-allowed;
-            transition: all 0.2s ease;
-            opacity: 0.5;
         }
 
         #container {
@@ -114,6 +74,7 @@
             display: table;
             margin: 0 auto;
             vertical-align: middle;
+
         }
 
         #box {
@@ -129,32 +90,30 @@
             margin-top: 0px;
         }
          td {
-            border: solid 0px black;
+            border: solid 1px black;
             width: 200px;
             height: 185px;
             vertical-align: bottom;
-            cursor: url(./images/zvp_plants-r.png) 50 50, auto;
-            transition: all 0.2s ease;
+            cursor: url(./images/zvp_plants-r.gif) 50 50, auto;
+            transition: all 0.5s ease;
             overflow: hidden;
+            
+
         } 
 
+
+
         .zombie1 {
-/*          background-image: url(./images/dirt2.png);
+            background-image: url(./images/dirt2.png);
             background-repeat: no-repeat;
             background-size: contain;
-            background-position: bottom; */
-/*             width: auto;
-            height: 185; */
-            background: rgba(0,0,0,0.0);
-            position: relative;
-            transform-origin: bottom ; 
-            transition: all 0.5s ease;
-            z-index: initial;
+            background-position: bottom;
+            z-index: 2;
+            /* display: block; */
 
-        }
+}
 
-        .zombie1::before{
-            position: absolute;
+        .zombie1::after{
             content: "";
             width: 100%;
             height: 100%;
@@ -165,37 +124,24 @@
             display: block;
             top: 0;
             left: 0;
-            z-index:inherit;
+            z-index:-1;
          
             animation-name: rise;
             animation-duration:0.5s ;
             animation-direction: normal;
-            transform-origin: bottom ; 
+            /* transform-origin: bottom ; */
+            transition: all 0.5s ease;
+        } 
+        @keyframes rise {
+            from{
+                transform: scaleY(1);
+            }
+            to{
+                transform: scaleY(0);
+
+            
             } 
-            @keyframes rise {
-                from{
-                    transform: scaleY(0);
-                }
-                to{
-                    transform: scaleY(1);
-                } 
-            } 
-        .zombie1::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            background-image: url(./images/dirt2.png);
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: bottom;
-            display: block;
-            top: 0;
-            left: 0;
-            transform-origin: bottom ; 
-            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
-            z-index: 1;
-        }
+        } 
 
         .zombie2{
             background-image: url(./images/giphy2.gif);
@@ -205,8 +151,9 @@
             animation-name: fade;
             animation-fill-mode: forwards;
             animation-duration: 1s;
-            cursor: url(./images/hit.png) 50 50, auto;
+            cursor: url(./images/hit.gif) 50 50, auto;
         } 
+
         @keyframes fade {
             from{
                 opacity: 1;
@@ -214,7 +161,8 @@
             to {
                 opacity: 0;
             }
-         }
+            
+        }
         
     </style>
 </head>
@@ -227,7 +175,7 @@
                 <span id="scoreText"> 0 </span>
             </div>
             
-            <div id="rank">
+            <div id="score">
                 最高分數:
                 <span id="highNameText">沒有人</span>
                 的分數是: 
@@ -239,42 +187,34 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
             </table>
             
-            <button id="startBtn" class="startBtn">開始遊戲</button>
+            <div id="startBtn">開始遊戲</div>
             <!-- <input type="button" value="開始遊戲" > -->
 
         </div>
     </div>
     <script>
         let score = 0;
-        let speed = 2500;
-        let playTime = 8000;
         let scoreText = document.getElementById("scoreText");
         let startBtn = document.getElementById("startBtn");
-        let tds = document.getElementsByTagName("td"); //這個抓到的會是陣列
+        let tds = document.getElementsByTagName("td");
 
         // 設定計時器的變數為 0 ，避免被 clearInterval 清掉，才可以重複利用
         let gameTimer = 0;
 
-        let high = {   //這邊是陣列
+        let high = {
             name: "",
             score: 0
         };
@@ -288,30 +228,24 @@
             highScoreText.innerText = high.score;
         }
 
-        startBtn.onclick = () => {  //按下開始鈕
+        startBtn.onclick = () => {
             // 將開始按鈕停用
-            disableBtn(true); 
-            /* startBtn.setAttribute("disabled", "");  */
- 
+            startBtn.setAttribute("disabled", true);
+
             // 分數歸 0
             score = 0;
             scoreText.innerText = score;
 
-            gameTimer = setInterval(game, speed);
-            game(); //執行這個自訂function (在下面)
-
-            setTimeout(() => {  //設定遊戲結束時間
+            gameTimer = setInterval(game, 3000);
+            game();
+            setTimeout(() => {
                 clearInterval(gameTimer);
-                for (let td of tds) {  //將td的陣列讀出來
+                for (let td of tds) {
                     td.classList.remove("zombie1");
                     td.classList.remove("zombie2");
                 }
                 alert(`時間到，你得到 ${score} 分!`);
-            /*     startBtn.removeAttribute("disabled"); */
-            /*     document.getElementById("startBtn").disabled=false ; */
-                disableBtn(false);
-                document.getElementById("startBtn").classList.remove("disabledBtn");
-                document.getElementById("startBtn").classList.add("startBtn");
+                startBtn.removeAttribute("disabled");
 
                 if (score > high.score) {
                     let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
@@ -325,30 +259,24 @@
                     window.localStorage.setItem("highscore", JSON.stringify(high));
                 }
 
-            }, playTime);
-        }
-        disableBtn = (type) => {
-                document.getElementById("startBtn").disabled=type;
-                document.getElementById("startBtn").classList.remove("startBtn");
-                document.getElementById("startBtn").classList.add("disabledBtn");
+            }, 8000);
         }
 
-        game = () => { //顯示出殭屍格子的自訂function程式段
+        game = () => { //顯示出殭屍格子的程式段
             for (let td of tds) {
                 td.classList.remove("zombie1");
                 td.classList.remove("zombie2");
             }
-            for (let i = 1; i <= 5; i++) {
-                rand = Math.round(Math.random() * 15);
+            for (let i = 0; i < 3; i++) {
+                rand = Math.round(Math.random() * 8);
                 if (tds[rand].classList.contains("zombie1")) {
                     i -= 1;
                 } else {
                     tds[rand].classList.add("zombie1");
                 }
+                /*   */
             }
         }
-
-        //打僵屍的程式段
         for (let td of tds) { //for裡面一定要加 let!!!
             td.onclick = () => {
                 if (td.classList.contains("zombie1")) { //打殭屍囉
@@ -359,7 +287,6 @@
                 }
             }
         }
-
     </script>
 
 </body>
