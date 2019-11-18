@@ -230,7 +230,7 @@
             </div>
             
             <div id="rank">
-                最高分數:
+                最高分者:
                 <span id="highNameText">沒有人</span>
                 的分數是: 
                 <span id="highScoreText">0</span>
@@ -317,6 +317,9 @@
 
                 if (score > high.score) {
                     let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
+                    if (playerName == null) {
+                        playerName = "不具名";
+                    }
                     high.name = playerName;
                     highNameText.innerText = playerName;
                     high.score = score;
@@ -324,7 +327,12 @@
 
                     // window.localStorage.setItem 只能存文字
                     // JSON.stringify 可以將 JSON 陣列轉成文字
-                    window.localStorage.setItem("highscore", JSON.stringify(high));
+/*                     if (empty(high.name)) {
+                        window.localStorage.clear();
+                        }else{ */
+
+                        window.localStorage.setItem("highscore", JSON.stringify(high));
+                        /* } */
                 }
 
             }, playTime);
@@ -340,8 +348,8 @@
                 td.classList.remove("zombie1");
                 td.classList.remove("zombie2");
             }
-            for (let i = 1; i <= 5; i++) {
-                rand = Math.round(Math.random() * 15);
+            for (let i = 0; i <= 4; i++) {
+                rand = Math.round(Math.random() * 14);
                 if (tds[rand].classList.contains("zombie1")) {
                     i -= 1;
                 } else {
