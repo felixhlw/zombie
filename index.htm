@@ -136,7 +136,7 @@
             height: 185px;
             vertical-align: bottom;
             cursor: url(./images/zvp_plants-r.png) 50 50, auto;
-            transition: all 0.2s ease;
+            transition: all 0.5s ease;
             overflow: hidden;
         } 
 
@@ -290,16 +290,24 @@
             
             <button id="startBtn" class="startBtn">開始遊戲</button>
             <!-- <input type="button" value="開始遊戲" > -->
+            <div id="hh"></div>
+            <div id="ah"></div>
+            <div id="final"></div>
 
+
+   
         </div>
     </div>
     <script>
         let score = 0;
         let speed = 2500;
-        let playTime = 8000;
+        let playTime = 10000;
         let scoreText = document.getElementById("scoreText");
         let startBtn = document.getElementById("startBtn");
-        let tds = document.getElementsByTagName("td"); //這個抓到的會是陣列
+        let tds = document.getElementsByTagName("td"); //
+        let hh = document.getElementById("hh");
+        let ah = document.getElementById("ah");
+        let final = document.getElementById("final");
 
         // 設定計時器的變數為 0 ，避免被 clearInterval 清掉，才可以重複利用
         let gameTimer = 0;
@@ -335,7 +343,10 @@
                 for (let td of tds) {  //將td的陣列讀出來
                     td.classList.remove("zombie1");
                     td.classList.remove("zombie2");
+                playSound(final, "final.mp3");
                 }
+                setTimeout(()=>{
+
                 alert(`時間到，你得到 ${score} 分!`);
             /*     startBtn.removeAttribute("disabled"); */
             /*     document.getElementById("startBtn").disabled=false ; */
@@ -346,7 +357,7 @@
                 if (score > high.score) {
                     let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
                     if (playerName == null) {
-                        playerName = "不具名";
+                        playerName = "知名不具";
                     }
                     high.name = playerName;
                     highNameText.innerText = playerName;
@@ -362,6 +373,7 @@
                         window.localStorage.setItem("highscore", JSON.stringify(high));
                         /* } */
                 }
+                },200)
 
             }, playTime);
         }
@@ -394,8 +406,16 @@
                     td.classList.add("zombie2");
                     score += 1;
                     scoreText.innerText = score;
+                    playSound(hh, "hit.mp3");
+                    setTimeout(()=>{
+                        playSound(ah, "ah.mp3");
+                    },30) 
                 }
             }
+        }
+
+        playSound=(act, soundfile)=> {
+            act.innerHTML = "<embed src='./sounds/" +soundfile+"' hidden='true' autostart='false' loop='false' />";
         }
 
     </script>
