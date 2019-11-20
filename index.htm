@@ -7,6 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+
+        @font-face{
+            font-family: 'j86ve-zp6cm';
+            src: url(./fonts/j86ve-zp6cm.woff) format('woff'); /* Modern Browsers */
+        }
+        @font-face{
+            font-family: 'r3hrn-ud4tm';
+            src: url(./fonts/r3hrn-ud4tm.woff) format('woff'); /* Modern Browsers */
+        }
+
         *{
             font-family: 'Microsoft Jhenghei';
             font-weight: 800;
@@ -57,7 +67,13 @@
         }
         div span{
             font-size: 48px;
-            font-weight: 800;
+            font-weight: 200;
+            font-style: italic; 
+            /* font-family: 'j86ve-zp6cm'; */
+            font-family: 'r3hrn-ud4tm', 'Microsoft Jhenghei' ;
+            text-shadow: 0 0 3px white;
+            filter: drop-shadow(0 0 3px rgba(255,255,255,1));
+            
         }
    
         .startBtn {
@@ -263,19 +279,19 @@
         <div id="box">
             <div id="remain">
                 剩餘時間:
-                <span id="remainTime"> 0 </span> 秒
+                <span id="remainTime"> 00 </span> 秒
             </div>
 
             <div id="currentScore">
                 你的分數:
-                <span id="scoreText"> 0 </span>
+                <span id="scoreText"> 000 </span>
             </div>
             
             <div id="rank">
                 最高分者:
                 <span id="highNameText">沒有人</span>
-                的分數是: 
-                <span id="highScoreText">0</span>
+                &nbsp;的分數是: 
+                <span id="highScoreText">000</span>
             </div>
 
             <table>
@@ -349,18 +365,18 @@
             // 將開始按鈕停用
             disableBtn(true); 
             /* startBtn.setAttribute("disabled", "");  */
- 
+            
             // 分數歸 0
             score = 0;
-            scoreText.innerText = score;
+            scoreText.innerText = paddingLeft(score, 3);
             
-            //計時器歸 0
+            //計時器開始倒數
             remainText.innerText = playTime/1000;
             i = playTime/1000;
             remainTime.innerText = i;   
             timer=setInterval(()=>{
                 i -= 1;
-                remainTime.innerText=i;    
+                remainTime.innerText=paddingLeft(i, 2);    
                 if(i<=0){
                     clearInterval(timer);
                 }
@@ -397,7 +413,7 @@
                     high.name = playerName;
                     highNameText.innerText = playerName;
                     high.score = score;
-                    highScoreText.innerText = score;
+                    highScoreText.innerText = paddingLeft(score,3);
 
                     // window.localStorage.setItem 只能存文字
                     // JSON.stringify 可以將 JSON 陣列轉成文字
@@ -440,7 +456,9 @@
                     td.classList.remove("zombie1");  //置換圖
                     td.classList.add("zombie2");
                     score += 1;
-                    scoreText.innerText = score;
+                    scoreText.innerText = paddingLeft(score, 3);
+                    console.log(score);
+                    
                     //playSound(hh, "hit.mp3"); //舊的音效載入方式，不好用
                     myStop(hit) //停掉先前的音效播放，以免衝突
                     hit.play(); 
@@ -453,14 +471,24 @@
             }
         }
         function myStop(file){  //停掉音效播放的函式
-        file.pause();
-        file.currentTime = 0;
+            file.pause();
+            file.currentTime = 0;
         }
           
           //舊的音效載入函式，不好用
 /*         playSound=(act, soundfile)=> { 
             act.innerHTML = "<embed src='./sounds/" +soundfile+"' hidden='true' autostart='false' loop='false' />";
         } */
+
+        //計算數字位數並在左邊補0
+        function paddingLeft(str,lenght){ 
+            str = '' + str;
+            if(str.length >= lenght){ 
+            return str;
+            }else{
+            return paddingLeft("0" +str, lenght);
+            }
+        }
 
     </script>
 
