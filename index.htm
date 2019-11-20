@@ -303,16 +303,20 @@
             </table>
             
             <button id="startBtn" class="startBtn">開始遊戲</button>
-            <!-- <input type="button" value="開始遊戲" > -->
-            <div id="hh"></div>
+            
+        <!-- 這幾個DIV是為了embed 音效載入用，是舊方式，不好用 -->
+        <!-- <div id="hh"></div>  
             <div id="ah"></div>
-            <div id="final"></div>
+            <div id="final"></div> -->
 
 
    
         </div>
     </div>
     <script>
+        var final = new Audio("./sounds/final.mp3");
+        var hit = new Audio("./sounds/hit.mp3");
+        var ah = new Audio("./sounds/ah.mp3");
         let score = 0;
         let speed = 2500;
         let playTime = 10000;
@@ -320,9 +324,9 @@
         let scoreText = document.getElementById("scoreText");
         let startBtn = document.getElementById("startBtn");
         let tds = document.getElementsByTagName("td"); //
-        let hh = document.getElementById("hh");
-        let ah = document.getElementById("ah");
-        let final = document.getElementById("final");
+        //let hh = document.getElementById("hh"); //舊的音頻載入方式
+        //let ah = document.getElementById("ah");
+        //let final = document.getElementById("final");
 
         // 設定計時器的變數為 0 ，避免被 clearInterval 清掉，才可以重複利用
         let gameTimer = 0;
@@ -373,7 +377,8 @@
                 for (let td of tds) {  //將td的陣列讀出來
                     td.classList.remove("zombie1");
                     td.classList.remove("zombie2");
-                playSound(final, "final.mp3");
+                    final.play();
+                    //playSound(final, "final.mp3");
                 }
                 setTimeout(()=>{
 
@@ -436,17 +441,26 @@
                     td.classList.add("zombie2");
                     score += 1;
                     scoreText.innerText = score;
-                    playSound(hh, "hit.mp3");
+                    //playSound(hh, "hit.mp3"); //舊的音效載入方式，不好用
+                    myStop(hit) //停掉先前的音效播放，以免衝突
+                    hit.play(); 
                     setTimeout(()=>{
-                        playSound(ah, "ah.mp3");
+                        myStop(ah);
+                        ah.play();
+                        //playSound(ah, "ah.mp3");
                     },30) 
                 }
             }
         }
-
-        playSound=(act, soundfile)=> {
-            act.innerHTML = "<embed src='./sounds/" +soundfile+"' hidden='true' autostart='false' loop='false' />";
+        function myStop(file){  //停掉音效播放的函式
+        file.pause();
+        file.currentTime = 0;
         }
+          
+          //舊的音效載入函式，不好用
+/*         playSound=(act, soundfile)=> { 
+            act.innerHTML = "<embed src='./sounds/" +soundfile+"' hidden='true' autostart='false' loop='false' />";
+        } */
 
     </script>
 
