@@ -33,16 +33,23 @@
         .blue {
             background: blue;
         }
-
-        #currentScore {
+        #remain {
             display: inline-block;
             margin-bottom: 50px;
             color: white;
             font-size: 24px;
         }
+
+        #currentScore {
+            display: inline-block;
+            margin-bottom: 50px;
+            margin-left: 10%; 
+            color: white;
+            font-size: 24px;
+        }
              
         #rank {
-             margin-left: 20%; 
+             margin-left: 10%; 
              display: inline-block; 
              color: white;
              font-size: 24px;
@@ -206,15 +213,16 @@
             background-position: center;
             position: relative;
             animation-name: fade;
+            animation-direction: normal;
             animation-fill-mode: forwards;
             animation-duration: 1s;
             cursor: url(./images/hit.png) 50 50, auto;
         } 
         @keyframes fade {
-            from{
+            15%{
                 opacity: 1;
             }
-            to {
+            100% {
                 opacity: 0;
             }
          }
@@ -235,13 +243,14 @@
             z-index: 1;
             animation-name: fade2;
             animation-fill-mode: forwards;
+            animation-direction: normal;
             animation-duration: 1s;
         }
         @keyframes fade2 {
-            0%{
+            8%{
                 opacity: 1;
             }
-            30% {
+            40% {
                 opacity: 0;
             }
          }
@@ -252,6 +261,11 @@
 <body>
     <div id="container">
         <div id="box">
+            <div id="remain">
+                剩餘時間:
+                <span id="remainTime"> 0 </span> 秒
+            </div>
+
             <div id="currentScore">
                 你的分數:
                 <span id="scoreText"> 0 </span>
@@ -302,6 +316,7 @@
         let score = 0;
         let speed = 2500;
         let playTime = 10000;
+        let remainText = document.getElementById("remainTime"); 
         let scoreText = document.getElementById("scoreText");
         let startBtn = document.getElementById("startBtn");
         let tds = document.getElementsByTagName("td"); //
@@ -334,8 +349,23 @@
             // 分數歸 0
             score = 0;
             scoreText.innerText = score;
+            
+            //計時器歸 0
+            remainText.innerText = playTime/1000;
+            i = playTime/1000;
+            remainTime.innerText = i;   
+            timer=setInterval(()=>{
+                i -= 1;
+                remainTime.innerText=i;    
+                if(i<=0){
+                    clearInterval(timer);
+                }
+             },1000);
+            
 
             gameTimer = setInterval(game, speed);
+
+
             game(); //執行這個自訂function (在下面)
 
             setTimeout(() => {  //設定遊戲結束時間
