@@ -84,9 +84,9 @@
             margin-bottom: 20px;
             /* background: -webkit-linear-gradient(top,rgba(21, 155, 21,0.1) -50%, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.726) 70%, rgba(59, 138, 59, 0.205) ); */
             background: -webkit-linear-gradient(top, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.1) 70%);
-            background: -moz-linear-gradient(top, #FFFFFF, orange);
-            background: -ms-linear-gradient(top, #FFFFFF, orange);
-            background: -o-linear-gradient(top, #FFFFFF, orange);
+            background: -moz-linear-gradient(top, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.1) 70%);
+            background: -ms-linear-gradient(top, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.1) 70%);
+            background: -o-linear-gradient(top, rgba(237, 255, 237, 0.945) , rgba(21, 155, 21, 0.1) 70%);
             text-align: center;
             font-size:24px;
             color: white;
@@ -358,6 +358,7 @@
         if (highStorage != null) {
             high = JSON.parse(highStorage);
             highNameText.innerText = high.name;
+            high.score=paddingLeft(score,3);  
             highScoreText.innerText = high.score;
         }
 
