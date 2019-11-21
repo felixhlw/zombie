@@ -279,7 +279,7 @@
         <div id="box">
             <div id="remain">
                 剩餘時間:
-                <span id="remainTime"> 00 </span> 秒
+                <span id="remainTime"> 00 </span>秒
             </div>
 
             <div id="currentScore">
@@ -372,7 +372,7 @@
             scoreText.innerText = paddingLeft(score, 3);
             
             //計時器開始倒數
-            remainText.innerText = playTime/1000;
+            /* remainText.innerText = playTime/1000; */
             i = playTime/1000;
             remainTime.innerText = i;   
             timer=setInterval(()=>{
@@ -394,7 +394,7 @@
                 for (let td of tds) {  //將td的陣列讀出來
                     td.classList.remove("zombie1");
                     td.classList.remove("zombie2");
-                    final.play();
+                    final.play(); //時間到就放這個音樂
                     //playSound(final, "final.mp3");
                 }
                 setTimeout(()=>{
@@ -403,8 +403,8 @@
             /*     startBtn.removeAttribute("disabled"); */
             /*     document.getElementById("startBtn").disabled=false ; */
                 disableBtn(false);
-                document.getElementById("startBtn").classList.remove("disabledBtn");
-                document.getElementById("startBtn").classList.add("startBtn");
+            //    document.getElementById("startBtn").classList.remove("disabledBtn");
+            //    document.getElementById("startBtn").classList.add("startBtn");
 
                 if (score > high.score) {
                     let playerName = prompt("恭喜你得到最高分，請輸入你的名字");
@@ -429,10 +429,16 @@
 
             }, playTime);
         }
+        //禁用按鈕的自訂函式
         disableBtn = (type) => {
                 document.getElementById("startBtn").disabled=type;
-                document.getElementById("startBtn").classList.remove("startBtn");
-                document.getElementById("startBtn").classList.add("disabledBtn");
+                if (type == true) {
+                    document.getElementById("startBtn").classList.remove("startBtn");
+                    document.getElementById("startBtn").classList.add("disabledBtn");
+                }else{
+                    document.getElementById("startBtn").classList.remove("disabledBtn");
+                    document.getElementById("startBtn").classList.add("startBtn");
+                }
         }
 
         game = () => { //顯示出殭屍格子的自訂function程式段
@@ -462,9 +468,9 @@
                     
                     //playSound(hh, "hit.mp3"); //舊的音效載入方式，不好用
                     myStop(hit) //停掉先前的音效播放，以免衝突
-                    hit.play(); 
+                    hit.play(); //打擊聲
                     setTimeout(()=>{
-                        myStop(ah);
+                        myStop(ah); //ah是慘叫聲
                         ah.play();
                         //playSound(ah, "ah.mp3");
                     },30) 
